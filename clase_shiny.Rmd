@@ -1,0 +1,454 @@
+---
+title: "Aplicaciones interactivas con Shiny"
+subtitle: "calidad"
+author: 
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    #lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: False
+      ratio: '13:9'
+---
+
+class: center, middle
+
+.linea-superior[]
+.linea-inferior[]
+
+<img src="imagenes/logo_portada2.png" width="200" />
+
+## Capacitación en R y herramientas de productividad - Shiny
+
+## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+
+### Junio 2023
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = TRUE)
+knitr::opts_chunk$set(message = FALSE, warning = F, eval = T) 
+options(scipen = "999")
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+```
+
+
+```{r include=FALSE,results=F}
+
+# indice
+# 
+# - Principales características de shiny
+#       - UI y Server
+#       - Input y Output ¿Reactividad?
+#       - layouts (sidebar,tab layouts, shinydashboard)
+#       - carga de datos (archivos desde el back, que el usuarios cargue archivos, consulta a bases de datos)
+# 
+# --
+# 
+# - Construcción de una Shiny App
+#       - Planificar tu app
+#       - Aplicacion monitoreando nombres   
+#        - Debuging rapido.
+#        - GIT !!!
+#        - desplegar gráficos
+#        - desplegar tablas
+# 
+# - retoques con CSS y html
+# --
+# 
+# ---
+# 
+# background-image: url("imagenes/fondo2.PNG")
+# background-size: contain;
+# background-position: 100% 0%
+# 
+# # Estructura del taller
+# 
+# - Posibilidades para montar una Shiny App
+#   - shinyapps.io
+#   - ShinyServer
+#   - docker+Shiny
+#   - docker+ShinyServer
+#   - docker+ShinyProxy
+#   - docker+compose/swarn
+#       
+# --
+# 
+# - Paquetes complementarios 
+#   - Shinytheme (UI)
+#   - Leaflet (trabajo con mapas y datos georefenciados)
+#   - Golem (Desarrollo de apps)
+#   - Rhino (Desarrollo de apps) [https://rhinoverse.dev/#rhino](https://rhinoverse.dev/#rhino) 
+#   - ShinyManager (autenticación)
+#   - usar shiny::runExample(NA)
+#          shiny::runExample("03_reactivity")
+#          shiny::runExample("04_mpg")
+#          shiny::runExample("05_sliders")
+
+# - Material util 
+#  - https://shiny.posit.co/r/gallery/
+#  - Libro hadley Whickam https://mastering-shiny.org
+
+# 
+# 
+# --
+# 
+# 
+# - Que viene?
+#     - Shiny fot python
+#     - R in the browser
+# 
+
+
+
+```
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Pero antes que todo!!!
+
+Trabajaremos con los siguientes paquetes, les invitamos a instalarlos para seguir la clase:
+
+```{r eval = F}
+
+install.packages(c("shiny","guaguas","dplyr","ggplot2","plotly","calidad","survey","writexl"))
+
+library("shiny")
+library("guaguas")
+library("dplyr")
+library("ggplot2")
+library("plotly")
+library("calidad")
+library("survey")
+library("writexl")
+
+```
+
+.center[<img src="imagenes/brent-rambo-not-bad.gif" width= "400"/>]
+
+---
+
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+
+# Estructura del taller
+
+**Contenidos de la clase**
+
+- Motivación
+
+
+--
+
+
+- Principales características de shiny
+
+--
+
+- A construir una Shiny App!
+  - 3 ejemplos.
+
+--
+
+- Ejemplos de Shiny Apps construidas en el INE.
+
+--
+
+- Información adicional, tips y referencias 
+      
+      
+--
+
+
+**Objetivos de la clase:**
+
+-  Capacitar en la construcción de una Shiny App.
+
+
+
+---
+
+class: inverse, center, middle
+
+# I. Motivación
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# ¿Por qué utilizar Shiny?
+
+*Iteractividad!!!*
+- clickear, ingresar datos, cambiar parametros.
+
+--
+
+*¿Para qué?*
+
+  - Resultados de análisis de una investigación. (shiny empresas)
+  - Disponibilizar alguna herramienta. (paquete de calidad)
+  - Evaluar el avance de una investigación, (esto nos ahorra mucho código)
+  - Simplemente automatizar un proceso tedioso
+  
+--
+
+*Usuarios finales*
+  - Usuarios que no sepan programar
+  - nosotros mismos!
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Shiny como una aplicación web
+
+Generalmente existen 3 tipos de aplicaciones web.
+
+--
+
+- Páginas de contacto, solo informativa sin interactividad, usualmente construidas con HTML y CSS en R tenemos paquetes como: rmarkdown, quarto, hugo, bookdown.
+
+--
+ 
+- Plataformas que permiten al usuario realizar acciones desde: seleccionar, mover, filtrar, cargar, entre otro: (html, css, js), acá Shiny es útil.
+ 
+--
+
+- Plataformas con bases de datos, permiten tener varios usuarios con acceso, los datos son consultados por querys: (html, css, js, sql). Acá Shiny puede hacer algo, pero necesita ayuda.
+
+--
+
+.center[
+
+
+<img src="imagenes/front_back.png" width="400" />
+
+
+]
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Principales características de Shiny App
+
+-ui
+
+-server
+
+-shinyApp(ui,serve)
+
+-input
+
+-output
+
+-¿reactividad?
+
+-acctionButton
+
+-observeEvent
+
+-isolate
+
+-downloadHandler
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Principales características de Shiny App
+
+Componentes básicos de una Shiny App
+
+--
+
+- **ui**: *(user interface)* Este objeto controla el diseño y la apariencia de la aplicación.
+
+--
+
+- **server**: Esta función contiene las instrucciones que el R necesita para construir la aplicación
+
+--
+
+- **shinyApp**(ui,serve): Corre la app uniendo los dos elementos anteriores.
+
+--
+
+```{r eval=F}
+
+library(shiny)
+
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {  
+  
+}
+
+shinyApp(ui, server)
+
+```
+
+--
+
+**¿Como creamos un proyeto de Shiny App?**
+
+--
+
+Veamos el código!!!...     `r icons::fontawesome("laptop")`
+
+```{r eval=F, include=F}
+
+# Acá el presentador abre Rstudio y muestra como generar una shinyApp desde la generación de un nuevo script con el mouse.
+# Explica las principales características 
+
+
+```
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Veamos como construir el UI
+
+.pull-left[
+
+**sidebarLayout()**
+
+```{r eval=FALSE}
+
+ui <- fluidPage(
+  titlePanel("Central limit theorem"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("m", "Number of samples:", 2, min = 1, max = 100)
+    ),
+    mainPanel(
+      plotOutput("hist")
+    )
+  )
+)
+```
+
+**tabsetPanel()**
+
+```{r eval=FALSE}
+
+ui <- fluidPage(
+  tabsetPanel(
+    tabPanel("Import data", 
+      fileInput("file", "Data", buttonLabel = "Upload..."),
+      textInput("delim", "Delimiter (leave blank to guess)", ""),
+      numericInput("skip", "Rows to skip", 0, min = 0),
+      numericInput("rows", "Rows to preview", 10, min = 1)
+    ),
+    tabPanel("Set parameters"),
+    tabPanel("Visualise results")
+  )
+)
+
+
+```
+
+**navbarPage()**
+
+```{r eval=FALSE}
+
+ui <- fluidPage(
+  navbarPage("App Title",
+             tabPanel("Plot"),
+             tabPanel("Summary"),
+             tabPanel("Table")
+  )
+)
+
+```
+
+
+]
+
+.pull-right[
+
+`r shiny::br() `
+
+.right[<img src="imagenes/sidebar.png" width= "400"/>]
+
+`r shiny::br() `
+`r shiny::br() `
+`r shiny::br() `
+
+
+.right[<img src="imagenes/tabset.png" width= "400"/>]
+
+`r shiny::br() `
+`r shiny::br() `
+`r shiny::br() `
+`r shiny::br() `
+
+
+.right[<img src="imagenes/navbarpage.png" width= "400"/>]
+
+]
+
+--
+
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Veamos como construir el UI
+
+Shiny posee funciones que nos permiten agregar contenidos para mejorar nuestro UI, básicamente estas funciones son "*wrapper*" de html.
+
+.center[<img src="imagenes/shiny_html1.png" width= "700"/>]
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Veamos como construir el UI
+
+Shiny posee funciones que nos permiten agregar contenidos para mejorar nuestro UI, básicamente estas funciones son "*wrapper*" de html.
+
+.center[<img src="imagenes/shiny_html2.png" width= "700"/>]
+
+
+---
+
+
+class: center, middle
+
+.linea-superior[]
+.linea-inferior[]
+
+<img src="imagenes/logo_portada2.png" width="200" />
+
+## Capacitación en R y herramientas de productividad - Shiny
+
+## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+
+### Junio 2023
