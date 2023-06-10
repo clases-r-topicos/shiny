@@ -2,9 +2,7 @@ library(shiny)
 library(guaguas)
 library(dplyr)
 library(ggplot2)
-library(plotly)
 
-hist(guaguas$n)
 
 datos <- guaguas %>% filter(n >= 100)
 
@@ -17,7 +15,7 @@ ui <- fluidPage(
                     choices = unique(datos$nombre))
              ),
         mainPanel(h3("Outputs"),
-                  plotlyOutput(outputId = "frecuencia_guaguas")
+                  plotOutput(outputId = "frecuencia_guaguas")
              )
              )
 )
@@ -26,7 +24,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  output$frecuencia_guaguas <- renderPlotly({
+  output$frecuencia_guaguas <- renderPlot({
     datos %>%
       filter(nombre == input$nombre) %>%
       ggplot(aes(anio,n)) +

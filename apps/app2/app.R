@@ -41,7 +41,5 @@ shinyApp(ui, server)
 
 
 
-runExample("01_hello")
-
 
 

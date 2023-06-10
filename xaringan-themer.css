@@ -252,6 +252,23 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 
 
+.size_style {
+  font-weight: bold;
+  font-style: italic;
+  margin-left: 30%;
+  font-size: 2em;
+  color: black;
+}
+
+.color_style {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 2em;
+  color: #8B0000;
+}
+
+
+
 @page { margin: 0; }
 @media print {
   .remark-slide-scaler {

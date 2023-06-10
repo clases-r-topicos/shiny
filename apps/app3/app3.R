@@ -18,8 +18,8 @@ ui <- fluidPage(
   titlePanel("Probando paquete calidad del INE"),
   sidebarLayout(sidebarPanel(
     selectInput("var",label = "Variable de interés",choices = c("",names(enusc)),selected = ""),
-    selectInput("denom",label = "Variable denominador",choices = c("",names(enusc)),selected = ""),
-    selectInput("dominio",label = "Variable desagregacion",choices = c("",names(enusc)),selected = ""),
+  #  selectInput("denom",label = "Variable denominador",choices = c("",names(enusc)),selected = ""),
+  #  selectInput("dominio",label = "Variable desagregacion",choices = c("",names(enusc)),selected = ""),
     downloadButton("download_tabla","Descarga")),
                 mainPanel(tableOutput("tabla")
                           ))
@@ -29,41 +29,27 @@ ui <- fluidPage(
 server <- function(input, output, session) {
 
 
-  if(input$denom == ""){
-    R_denom =  NULL
-  }else{
-    R_denom = input$dominio
-  }
-
-
-#   R_denom <- reactiveVal(NULL)
-#
-#   R_denom = reactive({
-# #    print(input$denom)
-#
-#   if(input$denom != ""){
-#
-#     input$denom
-#
-#   }
-#
-#   })
-
-  R_dominio = reactive({
-    # print(input$dominio)
-
-    if(input$dominio == ""){
-      NULL
-    }else{
-      input$dominio
-    }
-  })
+  # if(input$denom == ""){
+  #   R_denom =  NULL
+  # }else{
+  #   R_denom = input$denom
+  # }
+  #
+  # R_dominio = reactive({
+  #   # print(input$dominio)
+  #
+  #   if(input$dominio == ""){
+  #     NULL
+  #   }else{
+  #     input$dominio
+  #   }
+  # })
 
 ### generamos tabla
   tabulado <- reactive({
   calidad::assess(calidad::create_prop(var = input$var,
-                denominator = R_denom(),
-                domains = R_dominio(),
+                #denominator = #R_denom(),
+              #  domains = #R_dominio(),
                 design = com_dis))
   })
 

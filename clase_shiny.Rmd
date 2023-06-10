@@ -41,34 +41,13 @@ library(xaringanthemer)
 
 ```{r include=FALSE,results=F}
 
-# indice
-# 
-# - Principales características de shiny
-#       - UI y Server
-#       - Input y Output ¿Reactividad?
-#       - layouts (sidebar,tab layouts, shinydashboard)
-#       - carga de datos (archivos desde el back, que el usuarios cargue archivos, consulta a bases de datos)
-# 
-# --
-# 
-# - Construcción de una Shiny App
-#       - Planificar tu app
+#### documentacion
+# https://garthtarr.github.io/sydney_xaringan/#1
+
+# Planificar tu app
 #       - Aplicacion monitoreando nombres   
 #        - Debuging rapido.
 #        - GIT !!!
-#        - desplegar gráficos
-#        - desplegar tablas
-# 
-# - retoques con CSS y html
-# --
-# 
-# ---
-# 
-# background-image: url("imagenes/fondo2.PNG")
-# background-size: contain;
-# background-position: 100% 0%
-# 
-# # Estructura del taller
 # 
 # - Posibilidades para montar una Shiny App
 #   - shinyapps.io
@@ -81,7 +60,7 @@ library(xaringanthemer)
 # --
 # 
 # - Paquetes complementarios 
-#   - Shinytheme (UI)
+#   - Shinythmae (ui)
 #   - Leaflet (trabajo con mapas y datos georefenciados)
 #   - Golem (Desarrollo de apps)
 #   - Rhino (Desarrollo de apps) [https://rhinoverse.dev/#rhino](https://rhinoverse.dev/#rhino) 
@@ -120,13 +99,12 @@ Trabajaremos con los siguientes paquetes, les invitamos a instalarlos para segui
 
 ```{r eval = F}
 
-install.packages(c("shiny","guaguas","dplyr","ggplot2","plotly","calidad","survey","writexl"))
+install.packages(c("shiny","guaguas","dplyr","ggplot2","calidad","survey","writexl"))
 
 library("shiny")
 library("guaguas")
 library("dplyr")
 library("ggplot2")
-library("plotly")
 library("calidad")
 library("survey")
 library("writexl")
@@ -147,26 +125,25 @@ background-position: 100% 0%
 
 **Contenidos de la clase**
 
-- Motivación
+- I - Motivación
 
 
 --
 
 
-- Principales características de shiny
+- II - Principales características de una Shiny App
 
 --
 
-- A construir una Shiny App!
-  - 3 ejemplos.
+- III - ¡A construir una Shiny App!
 
 --
 
-- Ejemplos de Shiny Apps construidas en el INE.
+- IV - Ejemplos de Shiny Apps construidas en el INE.
 
 --
 
-- Información adicional, tips y referencias 
+- V - Tips y referencias
       
       
 --
@@ -189,10 +166,19 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# ¿Por qué utilizar Shiny?
+# ¿Que es Shiny?
 
-*Iteractividad!!!*
-- clickear, ingresar datos, cambiar parametros.
+- Es un paquete de R, que simplifica la construcción de plataformas interactivas para personas que vienen de disciplinas lejanas a la programación web o desde la ciencia y analítica de datos.
+
+--
+  
+- Shiny es un **"wrapper"** de html, css y JavaScript, los principales lenguajes para construir aplicaciones web.
+
+--
+
+¿Porque utilizar Shiny?
+
+*Iteractividad!!!*  -> clickear, ingresar datos, cambiar parametros.
 
 --
 
@@ -209,16 +195,15 @@ background-position: 100% 0%
   - Usuarios que no sepan programar
   - nosotros mismos!
 
-
 ---
 
 background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Shiny como una aplicación web
+# Shiny para aplicaciones web
 
-Generalmente existen 3 tipos de aplicaciones web.
+Se podría generalizar que existen 3 tipos de aplicaciones web.
 
 --
 
@@ -243,11 +228,19 @@ Generalmente existen 3 tipos de aplicaciones web.
 ]
 
 ---
+
+class: inverse, center, middle
+
+# II. Principales características de Shiny App
+
+---
 background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
 # Principales características de Shiny App
+
+Estos son los componentes principales de una Shiny App
 
 -ui
 
@@ -255,15 +248,13 @@ background-position: 100% 0%
 
 -shinyApp(ui,serve)
 
--input
+-inputs
 
--output
+-outputs
 
--¿reactividad?
+-¿reactividad? reactive({}) y observeEvent({})
 
 -acctionButton
-
--observeEvent
 
 -isolate
 
@@ -326,11 +317,19 @@ Veamos el código!!!...     `r icons::fontawesome("laptop")`
 ```
 
 ---
+
+class: inverse, center, middle
+
+# III. ¡A construir una Shiny App!
+
+---
+
+---
 background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Veamos como construir el UI
+# Como construi la ui
 
 .pull-left[
 
@@ -349,6 +348,8 @@ ui <- fluidPage(
     )
   )
 )
+
+##### * este código es solo de ejemplo, no está completo para generar una app
 ```
 
 **tabsetPanel()**
@@ -368,7 +369,7 @@ ui <- fluidPage(
   )
 )
 
-
+##### * este código es solo de ejemplo, no está completo para generar una app
 ```
 
 **navbarPage()**
@@ -383,6 +384,7 @@ ui <- fluidPage(
   )
 )
 
+##### * este código es solo de ejemplo, no está completo para generar una app
 ```
 
 
@@ -405,6 +407,7 @@ ui <- fluidPage(
 `r shiny::br() `
 `r shiny::br() `
 `r shiny::br() `
+`r shiny::br() `
 
 
 .right[<img src="imagenes/navbarpage.png" width= "400"/>]
@@ -419,9 +422,9 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Veamos como construir el UI
+# Veamos como construir la ui
 
-Shiny posee funciones que nos permiten agregar contenidos para mejorar nuestro UI, básicamente estas funciones son "*wrapper*" de html.
+Shiny posee funciones que nos permiten agregar contenidos para mejorar nuestra ui, estas funciones son "**wrapper**" de html.
 
 .center[<img src="imagenes/shiny_html1.png" width= "700"/>]
 
@@ -430,15 +433,646 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Veamos como construir el UI
+# Veamos como construir la ui
 
-Shiny posee funciones que nos permiten agregar contenidos para mejorar nuestro UI, básicamente estas funciones son "*wrapper*" de html.
+Shiny posee funciones que nos permiten agregar contenidos para mejorar nuestra ui, estas funciones son "**wrapper**" de html.
 
 .center[<img src="imagenes/shiny_html2.png" width= "700"/>]
 
+---
+
+class: inverse, center, middle
+
+# Pero... ¿Como el usuario interactua con la ui?
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Con widgets!
+
+Los widgets son las "dispositivos" que la app nos ofrece para interactuar.
+
+Se dividen entre **INPUTS** y **OUTPUTS**, ya que como sus nombres lo indican es donde ingresamos parametros y donde recibimos los productos procesados.
+
+
+.center[<img src="imagenes/input-output.gif" width= "500"/>]
+
+
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Inputs 
+
+Son funciones especiales que permiten al usuario ingresar parametros o información a la app, es por ello que van desde la **ui**. al **server**.
+
+Todos poseen almenos dos parametros básicos:
+
+--
+
+**inputId:** Es el nombre que le damos al input en particular, para luego poder acceder.
+
+--
+
+**label:** Es la etiqueta que el usuario lee sobre el input.
+
+--
+
+
+Todos los inputs de una app son almacenados dentro de una lista llamada: *input*, para acceder a ellos debemos buscarlos en esa lista, tal y como se hace en **R**:
+
+```{r eval=F}
+
+ui <- fluidPage(
+  numericInput("variable1","Variable 1",value = 30)
+)
+
+##### * este código es solo de ejemplo, no está completo para generar una app
+```
+
+.size_style[input$].color_style[variable1]
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Inputs 
+
+Todos los inputs reciben un tipo de dato en particular, sea  **texto**. **numérico**, **factores** o **fechas**, entre otros,
+
+Algunos de los inputs son los siguientes:
+
+`r shiny::br()`
+
+.center[<img src="imagenes/inputs.png" width= "700"/>] [*](https://www.paulamoraga.com/book-geospatial/sec-shiny.html)
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Outputs 
+
+Los outputs son los resultados que la app nos devuelve, pueden ser gráficos, imagenes, tablas, texto e incluso mapas, existe una gran diversidad de visualizaciones o resultados a obtener, dependiendo del interes del usuario.
+
+Los outputs viajan desde el **server** hacia la **ui**.
+
+Los outputs dependen de procesamientos que pasan en la función **server** de la aplicación, donde ocurre la magia y se combinan los elementos que el usuario ha ido ingresando.
+
+Al igual que los inputs los outputs son almacenados dentro de una lista llamada: *output*, para acceder a ellos debemos buscarlos en esa lista, tal y como se hace en **R**:
+
+```{r eval=F}
+
+server <- function(input, output, session) {
+
+output$frecuencia_guaguas <- renderPlot({
+    grafico
+  })
+}
+
+##### * este código es solo de ejemplo, no está completo para generar una app
+```
+
+.size_style[output$].color_style[plot1]
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Outputs
+
+Algunos outputs son:
+
+`r shiny::br()`
+
+
+.center[<img src="imagenes/outputs.png" width= "600"/>] [*](https://www.paulamoraga.com/book-geospatial/sec-shiny.html)
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Construyendo una app que busca nombres
+
+Vamos al código!!!...     `r icons::fontawesome("laptop")`
+
+```{r eval=F}
+
+library(shiny)
+library(guaguas)
+library(dplyr)
+library(ggplot2)
+
+datos <- guaguas %>% filter(n >= 100)
+
+ui <- fluidPage(
+  titlePanel("Buscando nombres"),
+  sidebarLayout(
+    sidebarPanel(h3("Inputs"),
+                 selectInput(inputId = "nombre",
+                             label = "Nombres",
+                             choices = unique(datos$nombre))
+    ),
+    mainPanel(h3("Outputs"),
+              plotlyOutput(outputId = "frecuencia_guaguas")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+
+     grafico <-  datos %>%
+        filter(nombre == input$nombre) %>%
+        ggplot(aes(anio,n)) +
+        geom_line()
+     
+output$frecuencia_guaguas <- renderPlot({
+    grafico
+  })
+  
+}
+shinyApp(ui, server)
+
+```
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# ¿Que es la reactividad?
+
+Este es el error mas típico aprendiendo Shiny:
+
+**"Caused by error in `input$nombre`:
+! Can't access reactive value 'nombre' outside of reactive consumer.
+ℹ Do you need to wrap inside reactive() or observe()?"**
+
+--
+
+En español:
+
+**"Provocado por error en input$nombre: ! No se puede acceder al valor reactivo 'nombre' fuera del consumidor reactivo.  
+¿Necesita envolver dentro de reactivo() u observar()?"**
+
+--
+
+La **reactividad**, es el mecanismo por el cual Shiny determina que código en el **server**, tiene que cambiar cuando el usuario realiza alguna acción. 
+
+Podríamos decir que son objetos de R que pueden cambiar en base al usuario (casi siempre) y que por ello deben tratarse de manera especial, "envueltos" en funciones reactivas u observadoras (ya lo veremos).
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Construyendo una app que busca nombres
+
+.size_style[Ahora si!]
+
+```{r eval=F}
+
+library(shiny)
+library(guaguas)
+library(dplyr)
+library(ggplot2)
+
+datos <- guaguas %>% filter(n >= 100)
+
+ui <- fluidPage(
+  titlePanel("Buscando nombres"),
+      sidebarLayout(
+        sidebarPanel(h3("Inputs"),
+                    selectInput(inputId = "nombre",
+                    label = "Nombres",
+                    choices = unique(datos$nombre))
+             ),
+        mainPanel(h3("Outputs"),
+                  plotOutput(outputId = "frecuencia_guaguas")
+                   )
+          )
+)
+
+
+
+server <- function(input, output, session) {
+
+grafico <- reactive({datos %>%
+      filter(nombre == input$nombre) %>%
+      ggplot(aes(anio,n)) +
+      geom_line()
+})
+  
+  
+  output$frecuencia_guaguas <- renderPlot({
+grafico()
+  })
+
+}
+
+shinyApp(ui, server)
+
+```
+
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# ¿Que es la reactividad?
+
+¿Y si queremos agregar mas nombres? o ¿Si queremos controlar cuando se genera el gráfico?
+
+--
+
+Como ya se mencionó existen dos grupo de funciones que reciben a los objetos reactivos, las funciones **reactivas** y las funciones que **observan**.
+
+--
+
+A diferencia de las funciones reactivas, las funciones que observan permiten que pasen acciones secundarias, pero no generan un objeto nuevo.
+
+--
+
+En el siguente ejemplo podemos ver como la función **observeEvent({})** recibe como argumento el input *input$generar_gráfico*, solo despues de que este input sea generado el gráfico se creará.
+
+```{r, eval=F}
+
+observeEvent(input$generar_gráfico,{  
+  
+  output$frecuencia_guaguas <- renderPlot({
+grafico()
+  })
+  
+  })
+
+##### * este código es solo de ejemplo, no está completo para generar una app
+```
+
+--
+
+Vamos al código!!!...     `r icons::fontawesome("laptop")`
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# ¿Que es la reactividad?
+
+- Permitamos que se puedan buscar mas nombres
+
+- y agreguemos un boton para generar un gráfico
+
+```{r eval=F}
+library(shiny)
+library(guaguas)
+library(dplyr)
+library(ggplot2)
+
+### permitimos que se busquen mas nombres ###
+# selectInput(inputId = "nombre",
+#             label = "Nombres",
+#             choices = unique(datos$nombre),multiple = T),
+# actionButton(inputId = "generar_gráfico",label = "Generar gráfico")
+
+# datos %>% 
+# filter(nombre %in% c("Kevin","Bryan")) %>%
+#   ggplot(aes(anio,n,color=nombre)) +
+#   geom_line()
+
+### Generamos un botón que controle la generación del gráfico
+# observeEvent(input$generar_gráfico,{  
+#   output$frecuencia_guaguas <- renderPlot({
+#     grafico()
+#   })
+# })
+
+### Evitamos que al cambiar nombres, se esté generando el gráfico constantemente, despues de que el botón fue generado
+# isolate({grafico()})
+
+datos <- guaguas %>% filter(n >= 100)
+
+
+ui <- fluidPage(
+  titlePanel("Buscando nombres"),
+  sidebarLayout(
+    sidebarPanel(h3("Inputs"),
+                 selectInput(inputId = "nombre",
+                             label = "Nombres",
+                             choices = unique(datos$nombre))
+    ),
+    mainPanel(h3("Outputs"),
+              plotOutput(outputId = "frecuencia_guaguas")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  grafico <- reactive({datos %>%
+      filter(nombre == input$nombre) %>%
+      ggplot(aes(anio,n)) +
+      geom_line()
+  })
+  
+  output$frecuencia_guaguas <- renderPlot({
+    grafico()
+  })
+}
+shinyApp(ui, server)
+
+```
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# ¿Entonces que es la aislación?
+
+```{r eval=F}
+#     isolate({input$valor1})  * isolate({ input$valor2})
+
+
+library(shiny)
+
+ui <- fluidPage(
+  numericInput("valor1","Valor 1",value = 10),
+
+  shiny::br(),
+  shiny::br(),
+
+  numericInput("valor2","Valor 2",value = 10),
+
+  shiny::br(),
+  shiny::br(),
+
+  verbatimTextOutput("resultado"),
+
+  shiny::br() ,
+  shiny::br() ,
+
+
+  shiny::actionButton("calc_btn","Calcular")
+
+)
+
+server <- function(input, output, session) {
+
+observeEvent(input$calc_btn,{
+  output$resultado = renderText({
+
+    input$valor1  *  input$valor2
+
+  })
+
+})
+
+
+
+}
+
+shinyApp(ui, server)
+
+
+```
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Un ejemplo mas complejo 
+
+--
+
+- La siguiente shiny App genera cálculos de estadísticas publicadas por el INE, específicamente la Encuesta Nacional Urbana de Seguridad Ciudadana.
+
+--
+
+- Esta app aplica el [estandar](https://www.ine.gob.cl/docs/default-source/institucionalidad/buenas-pr%C3%A1cticas/clasificaciones-y-estandares/est%C3%A1ndar-evaluaci%C3%B3n-de-calidad-de-estimaciones-publicaci%C3%B3n-27022020.pdf) de calidad definido por el INE para evaluar la calidad de las estadísticas publicadas.
+
+--
+
+- Estos calculos se realizan utilizando el paquete de [calidad](https://cran.r-project.org/web/packages/calidad/vignettes/tutorial.html)  desarrollado en R que aplica el [estandar](https://www.ine.gob.cl/docs/default-source/institucionalidad/buenas-pr%C3%A1cticas/clasificaciones-y-estandares/est%C3%A1ndar-evaluaci%C3%B3n-de-calidad-de-estimaciones-publicaci%C3%B3n-27022020.pdf).
+
+--
+
+- Este paquete es un **wrapper** del paquete [survey](https://cran.r-project.org/web/packages/survey/index.html) aplicado al [estandar](https://www.ine.gob.cl/docs/default-source/institucionalidad/buenas-pr%C3%A1cticas/clasificaciones-y-estandares/est%C3%A1ndar-evaluaci%C3%B3n-de-calidad-de-estimaciones-publicaci%C3%B3n-27022020.pdf) INE.
+
+.center[<img src="imagenes/ecuacion.png" width= "300"/>]
+
+--
+.pull-left[
+**El es Thomas Lumley, su creador**
+]
+
+--
+
+.pull-right[
+.left[<img src="imagenes/nerds.gif" width= "200"/>]
+]
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Un ejemplo mas complejo 
+
+- ¿Que implica agregar un nivel de desagregación a los cálculos?
+
+```{r eval=F}
+#     isolate({input$valor1})  * isolate({ input$valor2})
+
+library(shiny)
+library(calidad)
+library(survey)
+
+
+### declaramos diseño complejo
+com_dis <- svydesign(ids = ~Conglomerado,
+                     strata = ~VarStrat,
+                     weights = ~Fact_Pers,data = enusc)
+
+options(survey.lonely.psu = "certainty")
+
+
+## APP #
+
+### UI ####
+ui <- fluidPage(
+  titlePanel("Probando paquete calidad del INE"),
+  sidebarLayout(sidebarPanel(
+    selectInput("var",label = "Variable de interés",choices = c("",names(enusc)),selected = ""),
+  #  selectInput("denom",label = "Variable denominador",choices = c("",names(enusc)),selected = ""),
+  #  selectInput("dominio",label = "Variable desagregacion",choices = c("",names(enusc)),selected = ""),
+    downloadButton("download_tabla","Descarga")),
+                mainPanel(tableOutput("tabla")
+                          ))
+)
+
+### SERVER ####
+server <- function(input, output, session) {
+
+
+  # if(input$denom == ""){
+  #   R_denom =  NULL
+  # }else{
+  #   R_denom = input$denom
+  # }
+  #
+  # R_dominio = reactive({
+  #   # print(input$dominio)
+  #
+  #   if(input$dominio == ""){
+  #     NULL
+  #   }else{
+  #     input$dominio
+  #   }
+  # })
+
+### generamos tabla
+  tabulado <- reactive({
+  calidad::assess(calidad::create_prop(var = input$var,
+                #denominator = #R_denom(),
+              #  domains = #R_dominio(),
+                design = com_dis))
+  })
+
+
+  output$tabla <- renderTable({
+req(input$var)
+
+    # print(R_dominio)
+    # print(R_denom)
+
+tabulado()
+
+    })
+
+
+  # output$download_tabla <- downloadHandler(
+  #   filename = function() {
+  #     paste0("tabulado-", format(Sys.time(),"%Y-%m-%d-%H%M%S"), ".xlsx", sep="")
+  #   },
+  #   content = function(file) {
+  #     writexl::write_xlsx(tabulado(), file)
+  #   }
+  # )
+}
+
+shinyApp(ui, server)
+
+
+
+```
 
 ---
 
+class: inverse, center, middle
+
+# IV. Ejemplos de Shiny Apps construidas en el INE.
+
+---
+
+class: inverse, center, middle
+
+# V. Tips y referencias
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Algunos tips
+
+--
+
+- Planificar tu app
+
+--
+
+- Explorar técnicas de debugging (**print()** es tu copiloto)
+        
+--
+        
+- GIT !!!
+
+--
+
+- Posibilidades para montar en la web una Shiny App
+   - shinyapps.io
+   - ShinyServer
+   - Docker+Shiny o ShinyServer
+   - ShinyProxy 
+   
+   
+   .right[<img src="imagenes/docker_proxy_shiny.png" width= "400"/>]
+
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Paquetes complementarios 
+
+- Shinytheme (ui)
+
+--
+
+- Leaflet (trabajo con mapas y datos georefenciados)
+
+--
+
+- Golem (Desarrollo de apps)
+
+--
+
+- Rhino (Desarrollo de apps) [https://rhinoverse.dev/#rhino](https://rhinoverse.dev/#rhino) 
+
+--
+
+- ShinyManager (autenticación)
+
+--
+
+- usar:
+    - shiny::runExample(NA)
+    - shiny::runExample("03_reactivity")
+    - shiny::runExample("04_mpg")
+    - shiny::runExample("05_sliders")
+      
+--
+
+- ¿Que viene respecto a Shiny?
+     - Shiny for python
+     - R in the browser
+ 
+ 
+---
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Material utilizado para esta clase 
+
+
+- https://shiny.posit.co/r/gallery/
+
+  
+  
+- Libro hadley Whickam https://mastering-shiny.org
+  
+---
 
 class: center, middle
 
