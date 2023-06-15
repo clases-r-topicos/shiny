@@ -767,13 +767,11 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-{{  
 grafico <- reactive({datos %>% 
       filter(nombre == input$nombre) %>%
       ggplot(aes(anio,n)) +
       geom_line()
     }) 
-}}
   
   output$frecuencia_guaguas <- renderPlot({
 {{ grafico() }}
