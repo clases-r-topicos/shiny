@@ -668,12 +668,13 @@ ui &lt;- fluidPage(
 
 server &lt;- function(input, output, session) {
 
-* grafico &lt;- reactive({datos %&gt;% 
+{{  
+grafico &lt;- reactive({datos %&gt;% 
       filter(nombre == input$nombre) %&gt;%
       ggplot(aes(anio,n)) +
       geom_line()
-*   }) 
-  
+    }) 
+}}
   
   output$frecuencia_guaguas &lt;- renderPlot({
 * grafico() 
