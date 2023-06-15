@@ -185,6 +185,7 @@ a, a > code {
   float: right;
   width: 47%;
 }
+
 .pull-right ~ * {
   clear: both;
 }
@@ -229,6 +230,22 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   color: var(--text-color) !important;
 }
 
+
+.Large, .Large .remark-code, .Large .remark-inline-code {
+    font-size: 200%;
+}
+
+.font160, .code160 .remark-code, .code160 .remark-inline-code {
+    font-size: 160%;
+}
+
+.font130, .code130 .remark-code, .code130 .remark-inline-code {
+    font-size: 130%;
+}
+
+
+
+
 /* Slide Header Background for h1 elements */
 .remark-slide-content.header_background > h1 {
   display: block;
@@ -246,6 +263,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   padding-top: 7rem;
 }
 
+/* Scroller para lámina */
 
 .remark-slide-scaler {
     overflow-y: auto;
@@ -260,14 +278,24 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   color: black;
 }
 
-.color_style {
+.color_style_burdeo {
   font-weight: bold;
   font-style: italic;
   font-size: 2em;
   color: #8B0000;
 }
 
+.color_style_black {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 2em;
+  color: black;
+}
 
+
+.black_background{
+  background-color: black;
+}
 
 @page { margin: 0; }
 @media print {

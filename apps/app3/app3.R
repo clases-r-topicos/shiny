@@ -65,14 +65,14 @@ tabulado()
     })
 
 
-  output$download_tabla <- downloadHandler(
-    filename = function() {
-      paste0("tabulado-", format(Sys.time(),"%Y-%m-%d-%H%M%S"), ".xlsx", sep="")
-    },
-    content = function(file) {
-      writexl::write_xlsx(tabulado(), file)
-    }
-  )
+  # output$download_tabla <- downloadHandler(
+  #   filename = function() {
+  #     paste0("tabulado-", format(Sys.time(),"%Y-%m-%d-%H%M%S"), ".xlsx", sep="")
+  #   },
+  #   content = function(file) {
+  #     writexl::write_xlsx(tabulado(), file)
+  #   }
+  # )
 }
 
 shinyApp(ui, server)
