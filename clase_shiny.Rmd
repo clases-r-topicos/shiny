@@ -360,7 +360,7 @@ shinyApp(ui, server)
 
 --
 
-Veamos el código!!!...     `r icons::fontawesome("laptop")`
+Veamos el código!!!...
 
 ```{r eval=F, include=F}
 
@@ -651,7 +651,7 @@ output$plot1 <- renderPlot({
 ---
 class: inverse, center, middle
 
-# Vamos al código!!!...     `r icons::fontawesome("laptop")`
+# Vamos al código!!!...     
 
 ---
 background-image: url("imagenes/fondo2.PNG")
@@ -669,7 +669,7 @@ library(guaguas)
 library(dplyr)
 library(ggplot2)
 
-{{datos <- guaguas %>% filter(n >= 100)}}
+{{datos <- guaguas %>% dplyr::filter(n >= 100)}}
 
 ui <- fluidPage(
   titlePanel("Buscando nombres"),
@@ -687,7 +687,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   grafico <-  datos %>%
-{{    filter(nombre == input$nombre) %>% }}
+{{    dplyr::filter(nombre == input$nombre) %>% }}
     ggplot(aes(anio,n)) +
     geom_line()
   
@@ -747,7 +747,7 @@ library(guaguas)
 library(dplyr)
 library(ggplot2)
 
-datos <- guaguas %>% filter(n >= 100)
+datos <- guaguas %>% dplyr::filter(n >= 100)
 
 ui <- fluidPage(
   titlePanel("Buscando nombres"),
@@ -768,7 +768,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
 
 grafico <- reactive({datos %>% 
-      filter(nombre == input$nombre) %>%
+      dplyr::filter(nombre == input$nombre) %>%
       ggplot(aes(anio,n)) +
       geom_line()
     }) 
@@ -820,7 +820,7 @@ grafico()
 
 --
 
-Vamos al código!!!...     `r icons::fontawesome("laptop")`
+Vamos al código!!!...
 
 ---
 background-image: url("imagenes/fondo2.PNG")
@@ -853,7 +853,7 @@ library(ggplot2)
 # isolate({grafico()})
 
 
-datos <- guaguas %>% filter(n >= 100)
+datos <- guaguas %>% dplyr::filter(n >= 100)
 
 
 ui <- fluidPage(
@@ -873,7 +873,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   grafico <- reactive({datos %>%
-      filter(nombre == input$nombre) %>%
+      dplyr::filter(nombre == input$nombre) %>%
       ggplot(aes(anio,n)) +
       geom_line()
   })
@@ -903,11 +903,11 @@ library(ggplot2)
 #             choices = unique(datos$nombre),multiple = T),
 
 # datos %>% 
-# filter(nombre %in% input$nombre) %>%
+# dplyr::filter(nombre %in% input$nombre) %>%
 #   ggplot(aes(anio,n,color=nombre)) +
 #   geom_line()
 
-datos <- guaguas %>% filter(n >= 100)
+datos <- guaguas %>% dplyr::filter(n >= 100)
 
 
 ui <- fluidPage(
@@ -928,7 +928,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   grafico <- reactive({datos %>%
-      filter(nombre == input$nombre) %>%
+      dplyr::filter(nombre == input$nombre) %>%
       ggplot(aes(anio,n)) +
       geom_line()
   })
@@ -1136,7 +1136,6 @@ server <- function(input, output, session) {
 ### generamos tabla
   tabulado <- reactive({
   calidad::assess(calidad::create_prop(var = input$var,
-                #denominator = #R_denom(),
               #  domains = #R_dominio(),
                 design = com_dis))
   })

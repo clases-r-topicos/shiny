@@ -3,8 +3,9 @@
   <head>
     <title>Aplicaciones interactivas con Shiny</title>
     <meta charset="utf-8" />
+    <meta name="author" content="" />
     <meta name="date" content="2023-06-15" />
-    <script src="clase_shiny_files/header-attrs-2.18/header-attrs.js"></script>
+    <script src="clase_shiny_files/header-attrs-2.14/header-attrs.js"></script>
     <script src="clase_shiny_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="clase_shiny_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="clase_shiny_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -268,7 +269,7 @@ shinyApp(ui, server)
 
 --
 
-Veamos el código!!!...     &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"&gt;&lt;/path&gt;&lt;/svg&gt;
+Veamos el código!!!...
 
 
 
@@ -553,7 +554,7 @@ output$plot1 &lt;- renderPlot({
 ---
 class: inverse, center, middle
 
-# Vamos al código!!!...     &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"&gt;&lt;/path&gt;&lt;/svg&gt;
+# Vamos al código!!!...     
 
 ---
 background-image: url("imagenes/fondo2.PNG")
@@ -571,7 +572,7 @@ library(guaguas)
 library(dplyr)
 library(ggplot2)
 
-*datos &lt;- guaguas %&gt;% filter(n &gt;= 100)
+*datos &lt;- guaguas %&gt;% dplyr::filter(n &gt;= 100)
 
 ui &lt;- fluidPage(
   titlePanel("Buscando nombres"),
@@ -589,7 +590,7 @@ ui &lt;- fluidPage(
 
 server &lt;- function(input, output, session) {
   grafico &lt;-  datos %&gt;%
-*    filter(nombre == input$nombre) %&gt;% 
+*    dplyr::filter(nombre == input$nombre) %&gt;% 
     ggplot(aes(anio,n)) +
     geom_line()
   
@@ -648,7 +649,7 @@ library(guaguas)
 library(dplyr)
 library(ggplot2)
 
-datos &lt;- guaguas %&gt;% filter(n &gt;= 100)
+datos &lt;- guaguas %&gt;% dplyr::filter(n &gt;= 100)
 
 ui &lt;- fluidPage(
   titlePanel("Buscando nombres"),
@@ -669,7 +670,7 @@ ui &lt;- fluidPage(
 server &lt;- function(input, output, session) {
 
 grafico &lt;- reactive({datos %&gt;% 
-      filter(nombre == input$nombre) %&gt;%
+      dplyr::filter(nombre == input$nombre) %&gt;%
       ggplot(aes(anio,n)) +
       geom_line()
     }) 
@@ -720,7 +721,7 @@ grafico()
 
 --
 
-Vamos al código!!!...     &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"&gt;&lt;/path&gt;&lt;/svg&gt;
+Vamos al código!!!...
 
 ---
 background-image: url("imagenes/fondo2.PNG")
@@ -754,7 +755,7 @@ library(ggplot2)
 # isolate({grafico()})
 
 
-datos &lt;- guaguas %&gt;% filter(n &gt;= 100)
+datos &lt;- guaguas %&gt;% dplyr::filter(n &gt;= 100)
 
 
 ui &lt;- fluidPage(
@@ -774,7 +775,7 @@ ui &lt;- fluidPage(
 server &lt;- function(input, output, session) {
   
   grafico &lt;- reactive({datos %&gt;%
-      filter(nombre == input$nombre) %&gt;%
+      dplyr::filter(nombre == input$nombre) %&gt;%
       ggplot(aes(anio,n)) +
       geom_line()
   })
@@ -804,11 +805,11 @@ library(ggplot2)
 #             choices = unique(datos$nombre),multiple = T),
 
 # datos %&gt;% 
-# filter(nombre %in% input$nombre) %&gt;%
+# dplyr::filter(nombre %in% input$nombre) %&gt;%
 #   ggplot(aes(anio,n,color=nombre)) +
 #   geom_line()
 
-datos &lt;- guaguas %&gt;% filter(n &gt;= 100)
+datos &lt;- guaguas %&gt;% dplyr::filter(n &gt;= 100)
 
 
 ui &lt;- fluidPage(
@@ -829,7 +830,7 @@ ui &lt;- fluidPage(
 server &lt;- function(input, output, session) {
   
   grafico &lt;- reactive({datos %&gt;%
-      filter(nombre == input$nombre) %&gt;%
+      dplyr::filter(nombre == input$nombre) %&gt;%
       ggplot(aes(anio,n)) +
       geom_line()
   })
@@ -1032,7 +1033,6 @@ server &lt;- function(input, output, session) {
 ### generamos tabla
   tabulado &lt;- reactive({
   calidad::assess(calidad::create_prop(var = input$var,
-                #denominator = #R_denom(),
               #  domains = #R_dominio(),
                 design = com_dis))
   })
