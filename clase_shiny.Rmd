@@ -236,11 +236,9 @@ class: inverse, center, middle
 ---
 class: black_background
 
-
 <video height="100%" controls>
   <source src="imagenes/rue.mp4" type="video/mp4">
 </video>
-
 
 ---
 class: black_background
@@ -266,7 +264,6 @@ class: black_background
 <video height="100%" controls>
   <source src="imagenes/calidad.mp4" type="video/mp4">
 </video>
-
 
 ---
 
