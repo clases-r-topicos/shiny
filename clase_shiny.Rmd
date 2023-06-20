@@ -232,16 +232,38 @@ class: inverse, center, middle
 
 # II - Algunos ejemplos de Shiny Apps construidas en el INE
 
----
-class: black_background
-
-<img src="imagenes/satelitales.gif" width="100%" />
 
 ---
 class: black_background
 
-<img src="imagenes/app_calidad.gif" width="100%" />
+<video height="100%" controls>
+  <source src="imagenes/rue.mp4" type="video/mp4">
+</video>
 
+---
+class: black_background
+
+<video height="100%" controls>
+  <source src="imagenes/imagenes.mp4" type="video/mp4">
+</video>
+
+
+---
+class: black_background
+
+
+<video height="100%" controls>
+  <source src="imagenes/nomenclatura.mp4" type="video/mp4">
+</video>
+
+
+---
+class: black_background
+
+
+<video height="100%" controls>
+  <source src="imagenes/calidad.mp4" type="video/mp4">
+</video>
 
 ---
 

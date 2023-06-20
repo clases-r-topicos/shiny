@@ -6,6 +6,11 @@ com_dis <- svydesign(ids = ~Conglomerado,
                      strata = ~VarStrat,
                      weights = ~Fact_Pers,data = enusc)
 options(survey.lonely.psu = "certainty")
+
+
+calidad::assess(calidad::create_prop(var = "VP_DC", domains = "enc_region", design = com_dis))
+
+
 ## APP #
 ### UI ####
 ui <- fluidPage(
