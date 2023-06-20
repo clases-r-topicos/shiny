@@ -4,7 +4,7 @@
     <title>Aplicaciones interactivas con Shiny</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <meta name="date" content="2023-06-15" />
+    <meta name="date" content="2023-06-20" />
     <script src="clase_shiny_files/header-attrs-2.14/header-attrs.js"></script>
     <script src="clase_shiny_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="clase_shiny_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
@@ -1003,6 +1003,8 @@ com_dis &lt;- svydesign(ids = ~Conglomerado,
 
 options(survey.lonely.psu = "certainty")
 
+## probando calidad 
+calidad::assess(calidad::create_prop(var = "VP_DC", domains = "enc_region", design = com_dis))
 
 ## APP #
 

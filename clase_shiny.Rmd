@@ -1106,6 +1106,8 @@ com_dis <- svydesign(ids = ~Conglomerado,
 
 options(survey.lonely.psu = "certainty")
 
+## probando calidad 
+calidad::assess(calidad::create_prop(var = "VP_DC", domains = "enc_region", design = com_dis))
 
 ## APP #
 
